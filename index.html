@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="NanoGS: Training-Free Gaussian Splat Simplification">
+  <meta name="keywords" content="NanoGS, Gaussian Splatting, 3DGS, simplification, training-free, merge">
+  <meta name="author" content="Butian Xiong, Rong Liu, Tiantian Zhou, Meida Chen, Zhiwen Fan, Andrew Feng">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NanoGS: Training-Free Gaussian Splat Simplification</title>
+
+  <link rel="stylesheet" href="./static/css/bootstrap-4.4.1.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/style.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+
+
+  <link rel="stylesheet" href="./static/css/dics.original.css">
+  <script src="./static/js/event_handler.js"></script>
+  <script src="./static/js/dics.original.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+
+</head>
+<body>
+  <div class="title">
+    <h1>NanoGS: Training-Free<br>Gaussian Splat Simplification</h1>
+  </div>
+  <div class="authors is-size-5">
+    
+    <a href="https://saliteta.github.io/" rel="noopener">Butian Xiong<sup>1*</sup></a>
+    
+    <a href="https://rongliu-leo.github.io/" rel="noopener">Rong Liu<sup>1*</sup></a>
+    
+    <a href="https://www.linkedin.com/in/tiantianzhou/" rel="noopener">Tiantian Zhou<sup>1</sup></a><br>
+    
+    <a href="https://www.linkedin.com/in/meida-chen-938a265b/" rel="noopener">Meida Chen<sup>1</sup></a>
+    
+    <a href="https://zhiwenfan.github.io/" rel="noopener">Zhiwen Fan<sup>2</sup></a>
+    
+    <a href="https://scholar.google.com/citations?user=JKWxGfsAAAAJ&hl=en" rel="noopener">Andrew Feng<sup>1</sup></a>
+  </div>
+
+  <div class="authors is-size-5">
+    <p>
+      <sup>*</sup>Co-first authors
+    </p>
+  </div>
+
+  <div class="affiliations is-size-5">
+    <a href="https://ict.usc.edu/" style="color:#990000;"><sup>1</sup>USC Institute for Creative Technologies</a>
+    <a href="https://www.tamu.edu/index.html" style="color:#500000;" rel="noopener"><sup>2</sup>Texas A&M University</a>
+  </div>
+
+  <div class="links">
+
+    <span class="link-block">
+      <a href="" class="external-link button is-rounded">
+        <span class="icon">
+          
+          
+            <i class="ai ai-arxiv"></i>
+          
+        </span>
+        <span>arXiv</span>
+      </a>
+    </span>
+    
+    <span class="link-block">
+      <a href="#" class="external-link button is-rounded">
+        <span class="icon">
+          
+          
+            <i class="fas fa-file-pdf"></i>
+          
+        </span>
+        <span>Paper</span>
+      </a>
+    </span>
+  
+    <span class="link-block">
+      <a href="https://rongliu-leo.github.io/NanoGS/" class="external-link button is-rounded">
+        <span class="icon">
+          
+          
+            <i class="fas fa-globe"></i>
+          
+        </span>
+        <span>Web App</span>
+      </a>
+    </span>
+
+    <span class="link-block">
+      <a href="https://github.com/RongLiu-Leo/NanoGS" class="external-link button is-rounded" rel="noopener">
+        <span class="icon">
+          
+          
+            <i class="fab fa-github"></i>
+          
+        </span>
+        <span>Code (Web)</span>
+      </a>
+    </span>
+
+    <span class="link-block">
+      <a href="https://github.com/saliteta/NanoGS" class="external-link button is-rounded" rel="noopener">
+        <span class="icon">
+          
+          
+            <i class="fab fa-github"></i>
+          
+        </span>
+        <span>Code (Python)</span>
+      </a>
+    </span>
+  
+  </div>
+  <div class="section teaser">
+    <img src="static/images/teaser.png" alt="Teaser" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+    <p>NanoGS achieves substantial simplification ratios while preserving fidelity and geometry—without post-optimization or calibrated images.</p>
+  </div>
+
+<div class="abstract has-text-justified">
+  <h2>Abstract</h2>
+  <p>
+    3D Gaussian Splat (3DGS) enables high-fidelity, real-time novel view synthesis by representing scenes with large sets of anisotropic primitives, but often requires millions of Splats, incurring significant storage and transmission costs. Most existing compression methods rely on GPU-intensive post-training optimization with calibrated images, limiting practical deployment.
+    We introduce <b>NanoGS</b>, a training-free and lightweight framework for Gaussian Splat simplification. Instead of relying on image-based rendering supervision, NanoGS formulates simplification as local pairwise merging over a sparse spatial graph. The method approximates a pair of Gaussians with a single primitive using mass preserved moment matching and evaluates merge quality through a principled merge cost between the original mixture and its approximation. By restricting merge candidates to local neighborhoods and selecting compatible pairs efficiently, NanoGS produces compact Gaussian representations while preserving scene structure and appearance.
+    NanoGS operates directly on existing Gaussian Splat models, runs efficiently on CPU, and preserves the standard 3DGS parameterization, enabling seamless integration with existing rendering pipelines. Experiments demonstrate that NanoGS substantially reduces primitive count while maintaining high rendering fidelity, providing an efficient and practical solution for Gaussian Splat simplification.
+</div>
+
+
+</body>
+</html>

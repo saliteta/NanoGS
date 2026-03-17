@@ -1,0 +1,167 @@
+/* Define CSS variables for easy theming */
+:root {
+  --primary-color: #2B333F;
+  --background-color: #ffffff;
+  --accent-color: #0E132B;
+  --link-color: #0077aa;
+  --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+/* Global Styles */
+body {
+  font-family: var(--font-stack);
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  margin: 0px auto;  /* Center the content */
+  max-width: var(--max-width); /* Restrict maximum width */
+  padding: 20px;
+  line-height: 1.6;
+}
+
+/* Header Section */
+.title {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 0!important;
+}
+
+.abstract {
+  max-width: 720px;
+  margin: 40px auto;
+}
+
+.section {
+  margin: 0px auto;
+  max-width: 1080px;
+  padding: 20px 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: 500;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--primary-color);
+  padding-bottom: 5px;
+}
+
+/* Navigation and Links */
+.authors, .affiliations, .links {
+  text-align: center;
+}
+
+.links {
+  margin: 15px 0;
+}
+
+a {
+  color: var(--link-color);
+  font-weight: 500;
+}
+
+.affiliations a {
+  color: var(--accent-color);
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--accent-color);
+}
+
+.authors a,
+.affiliations a,
+.links a {
+  margin: 0 10px;
+}
+
+
+/* Teaser Section */
+.teaser {
+  text-align: center;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.teaser video {
+  border-radius: 5px;
+}
+
+/* Code blocks */
+code, pre {
+  background-color: #f4f4f4 !important;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  overflow-x: auto;
+}
+.external-link.button  {
+  background-color: #ffffff;
+  color: var(--accent-color);
+}
+
+.external-link.button:hover {
+  color: #ffffff;
+  background-color: var(--accent-color);
+  text-decoration: none;
+}
+.external-link.button span {
+  transition: color 0.3s ease;
+}
+/* Style the buttons that are used to open the tab content */
+.nav-item {
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+  background-color: inherit;
+  float: left;
+  border: 1px solid #ddd;
+  outline: none;
+  cursor: pointer;
+  transition: 0.0s;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+/* Change background color of buttons on hover */
+.nav-item:hover {
+  background-color: #6FE7B9;
+}
+
+/* Create an active/current tablink class */
+.nav-tabs .nav-link.active {
+  background-color: #003366;
+  color:white;
+  font-weight: 500;
+}
+
+.nav a {
+  color: #000;
+  text-decoration: none;
+}
+.nav a:hover {
+  color: #000;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.publication-video {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+
+  overflow: hidden;
+  border-radius: 10px !important;
+}
+.publication-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
