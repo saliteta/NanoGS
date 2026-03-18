@@ -5,15 +5,21 @@ document.addEventListener('DOMContentLoaded', domReady);
     let dicsDemo = null;
     let dicsCompressionReal = null;
     let dicsCompressionSynthetic = null;
+    let dicsCompressionGenerated = null;
 
     const COMPRESSION_SCENES_REAL = ['bicycle', 'bonsai', 'counter', 'drjohnson', 'flowers', 'garden', 'kitchen', 'playroom', 'room', 'stump', 'train', 'treehill', 'truck'];
     const COMPRESSION_SCENES_SYNTHETIC = ['chair', 'drums', 'ficus', 'hotdog', 'lego', 'materials', 'mic', 'ship'];
+    const COMPRESSION_SCENES_GENERATED = ['caribbean_pirate_ship', 'computer', 'cyber_chair', 'drone', 'military_bulldozer', 'transformer'];
     const COMPRESSION_RATIO_LABELS = ['100%', '10%', '1%', '0.1%'];
     const COMPRESSION_RATIO_FOLDERS = [null, '0_1', '0_01', '0_001'];
+    const COMPRESSION_GENERATED_RATIO_LABELS = ['100%', '30%', '10%', '1%', '0.1%'];
+    const COMPRESSION_GENERATED_RATIO_FOLDERS = [null, '0_3', '0_1', '0_01', '0_001'];
     let compressionRealSceneIdx = 0;
     let compressionRealRatioIdx = 1;
     let compressionSyntheticSceneIdx = 0;
     let compressionSyntheticRatioIdx = 1;
+    let compressionGeneratedSceneIdx = 0;
+    let compressionGeneratedRatioIdx = 1;
 
     function compressionGtImageSrc(scene) {
         return './static/images/compression/' + scene + '/gt.png';
@@ -57,6 +63,17 @@ document.addEventListener('DOMContentLoaded', domReady);
             img.alt = labels[i];
             container.appendChild(img);
         }
+    }
+
+    function compressionInjectGeneratedCompare(container, sceneList, sceneIdx, ratioIdx) {
+        if (!container || ratioIdx === 0) return;
+        const scene = sceneList[sceneIdx];
+        const ratioFolder = COMPRESSION_GENERATED_RATIO_FOLDERS[ratioIdx];
+        container.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = compressionMethodImageSrc(scene, ratioFolder, 'ours');
+        img.alt = 'Ours';
+        container.appendChild(img);
     }
 
     function compressionUpdateRealDisplay() {
@@ -119,6 +136,35 @@ document.addEventListener('DOMContentLoaded', domReady);
         }
     }
 
+    function compressionUpdateGeneratedDisplay() {
+        const idx = compressionGeneratedRatioIdx;
+        const gtEl = document.getElementById('compression-generated-gt');
+        const compareEl = document.getElementById('compression-generated-compare');
+        const scene = COMPRESSION_SCENES_GENERATED[compressionGeneratedSceneIdx];
+        const refHeight = Math.max(
+            gtEl && gtEl.offsetHeight ? gtEl.offsetHeight : 0,
+            compareEl && compareEl.offsetHeight ? compareEl.offsetHeight : 0
+        );
+        if (idx === 0) {
+            if (gtEl) { gtEl.style.display = ''; const img = gtEl.querySelector('.b-dics__media-container img'); if (img) img.src = compressionGtImageSrc(scene); }
+            if (compareEl) compareEl.style.display = 'none';
+        } else {
+            if (gtEl) gtEl.style.display = 'none';
+            if (compareEl) {
+                compareEl.style.display = '';
+                const imgs = compareEl.querySelectorAll('img');
+                const ratioFolder = COMPRESSION_GENERATED_RATIO_FOLDERS[idx];
+                if (imgs[0]) imgs[0].src = compressionMethodImageSrc(scene, ratioFolder, 'ours');
+                if (dicsCompressionGenerated) dicsCompressionGenerated.medias = dicsCompressionGenerated._getMedias();
+            }
+        }
+        const h = refHeight;
+        if (h > 0) {
+            if (gtEl) gtEl.style.minHeight = h + 'px';
+            if (compareEl) compareEl.style.minHeight = h + 'px';
+        }
+    }
+
     function compressionRealSceneEvent(idx) {
         compressionRealSceneIdx = idx;
         compressionUpdateRealDisplay();
@@ -149,19 +195,41 @@ document.addEventListener('DOMContentLoaded', domReady);
         compressionUpdateSyntheticDisplay();
     }
 
+    function compressionGeneratedSceneEvent(idx) {
+        compressionGeneratedSceneIdx = idx;
+        compressionUpdateGeneratedDisplay();
+        const list = document.getElementById('compression-generated-scene').children;
+        for (let i = 0; i < list.length; i++) list[i].children[0].className = (idx === i) ? 'nav-link active' : 'nav-link';
+    }
+
+    function compressionGeneratedRatioSlider(el) {
+        const idx = parseInt(el.value, 10);
+        compressionGeneratedRatioIdx = idx;
+        const labelEl = document.getElementById('compression-generated-ratio-label');
+        if (labelEl) labelEl.textContent = COMPRESSION_GENERATED_RATIO_LABELS[idx];
+        compressionUpdateGeneratedDisplay();
+    }
+
         function domReady() {
             const realGtEl = document.getElementById('compression-real-gt');
             const realCompareEl = document.getElementById('compression-real-compare');
             const syntheticGtEl = document.getElementById('compression-synthetic-gt');
             const syntheticCompareEl = document.getElementById('compression-synthetic-compare');
+            const generatedGtEl = document.getElementById('compression-generated-gt');
+            const generatedCompareEl = document.getElementById('compression-generated-compare');
             compressionInjectGt(realGtEl, COMPRESSION_SCENES_REAL[compressionRealSceneIdx]);
             compressionInjectGt(syntheticGtEl, COMPRESSION_SCENES_SYNTHETIC[compressionSyntheticSceneIdx]);
+            compressionInjectGt(generatedGtEl, COMPRESSION_SCENES_GENERATED[compressionGeneratedSceneIdx]);
             compressionInjectCompare(realCompareEl, COMPRESSION_SCENES_REAL, compressionRealSceneIdx, compressionRealRatioIdx);
             compressionInjectCompare(syntheticCompareEl, COMPRESSION_SCENES_SYNTHETIC, compressionSyntheticSceneIdx, compressionSyntheticRatioIdx);
+            compressionInjectGeneratedCompare(generatedCompareEl, COMPRESSION_SCENES_GENERATED, compressionGeneratedSceneIdx, compressionGeneratedRatioIdx);
             if (realGtEl) realGtEl.style.display = 'none';
             if (syntheticGtEl) syntheticGtEl.style.display = 'none';
+            if (generatedGtEl) generatedGtEl.style.display = 'none';
             document.getElementById('compression-real-ratio-label').textContent = COMPRESSION_RATIO_LABELS[compressionRealRatioIdx];
             document.getElementById('compression-synthetic-ratio-label').textContent = COMPRESSION_RATIO_LABELS[compressionSyntheticRatioIdx];
+            const generatedLabelEl = document.getElementById('compression-generated-ratio-label');
+            if (generatedLabelEl) generatedLabelEl.textContent = COMPRESSION_GENERATED_RATIO_LABELS[compressionGeneratedRatioIdx];
             if (realCompareEl) {
                 dicsCompressionReal = new Dics({
                     container: realCompareEl,
@@ -176,8 +244,16 @@ document.addEventListener('DOMContentLoaded', domReady);
                     textPosition: "bottom"
                 });
             }
+            if (generatedCompareEl) {
+                dicsCompressionGenerated = new Dics({
+                    container: generatedCompareEl,
+                    hideTexts: false,
+                    textPosition: "bottom"
+                });
+            }
             compressionUpdateRealDisplay();
             compressionUpdateSyntheticDisplay();
+            compressionUpdateGeneratedDisplay();
             const rw = document.querySelectorAll('.b-dics.real-world')[0];
             if (rw) dicsRealWorld = new Dics({ container: rw, hideTexts: false, textPosition: "bottom" });
             const demo = document.querySelectorAll('.b-dics.demo')[0];

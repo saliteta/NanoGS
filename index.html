@@ -65,7 +65,7 @@
   <div class="links">
 
     <span class="link-block">
-      <a href="" class="external-link button is-rounded">
+      <a href="https://arxiv.org/abs/2603.16103" class="external-link button is-rounded">
         <span class="icon">
           
           
@@ -77,7 +77,7 @@
     </span>
     
     <span class="link-block">
-      <a href="#" class="external-link button is-rounded">
+      <a href="https://arxiv.org/pdf/2603.16103" class="external-link button is-rounded">
         <span class="icon">
           
           
@@ -193,6 +193,29 @@
       <label class="mb-0 mr-2">Ratio:</label>
       <input type="range" class="compression-ratio-slider mr-2" id="compression-synthetic-ratio-slider" min="0" max="3" step="1" value="1" oninput="compressionSyntheticRatioSlider(this)">
       <span class="compression-ratio-label font-weight-bold" id="compression-synthetic-ratio-label">10%</span>
+    </div>
+  </section>
+
+  <section class="section content-section">
+    <h2>Generated Splat Simplification</h2>
+    <ul class="nav nav-tabs nav-fill nav-justified scene-tabs" id="compression-generated-scene">
+      <li class="nav-item"><a class="nav-link active" onclick="compressionGeneratedSceneEvent(0)">caribbean_pirate_ship</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionGeneratedSceneEvent(1)">computer</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionGeneratedSceneEvent(2)">cyber_chair</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionGeneratedSceneEvent(3)">drone</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionGeneratedSceneEvent(4)">military_bulldozer</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionGeneratedSceneEvent(5)">transformer</a></li>
+    </ul>
+    <div class="compression-gt-only compression-generated-gt mt-3" id="compression-generated-gt">
+      <!-- single GT image when ratio 100% -->
+    </div>
+    <div class="b-dics compression-generated mt-3" id="compression-generated-compare" style="display: none;">
+      <!-- Ours method images when ratio 30%/10%/1%/0.1% -->
+    </div>
+    <div class="mt-3 d-flex align-items-center flex-wrap">
+      <label class="mb-0 mr-2">Ratio:</label>
+      <input type="range" class="compression-ratio-slider mr-2" id="compression-generated-ratio-slider" min="0" max="4" step="1" value="1" oninput="compressionGeneratedRatioSlider(this)">
+      <span class="compression-ratio-label font-weight-bold" id="compression-generated-ratio-label">30%</span>
     </div>
   </section>
 
