@@ -3,6 +3,7 @@ from dataclasses import dataclass
 @dataclass
 class RunParams:
     ratio: float
+    merge_cap: float
     k: int
     opacity_threshold: float
 

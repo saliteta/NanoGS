@@ -151,9 +151,10 @@ def simplify(in_path: str, out_path: str, rp: RunParams, cp: CostParams) -> None
     mu, sc, q, op, sh = prune_by_opacity(mu, sc, q, op, sh, rp.opacity_threshold)
     print(f"After opacity pruning, {mu.shape[0]} splats remain.")
 
+    p_cap = max(1, int(rp.merge_cap * N0))
 
     iteration = 0
-    
+
     while True:
         if mu.shape[0] <= target:
             break
@@ -167,7 +168,7 @@ def simplify(in_path: str, out_path: str, rp: RunParams, cp: CostParams) -> None
         w = edge_costs(edges, mu, sc, q, op, sh, cp)
 
         merges_needed = N - target
-        P = merges_needed if merges_needed > 0 else None
+        P = min(merges_needed, p_cap) if merges_needed > 0 else None
 
         pairs = greedy_pairs_from_edges(edges, w, N=N, P=P)
 
@@ -206,6 +207,7 @@ def main():
     )
 
     ap.add_argument("--k", type=int, default=16, help="k for KNN candidates.")
+    ap.add_argument("--merge_cap", type=float, default=0.5, help="Max merges per pass as ratio of original splat count (0.01–0.5).")
     ap.add_argument("--opacity_threshold", type=float, default=0.1, help="Prune splats with opacity below this threshold before merging.")
 
     ap.add_argument("--lam_geo", type=float, default=1.0)
@@ -214,6 +216,7 @@ def main():
     args = ap.parse_args()
     if not (0.0 < args.ratio < 1.0):
         raise ValueError("--ratio must be in the open interval (0, 1).")
+    merge_cap = max(0.01, min(0.5, float(args.merge_cap)))
 
     if args.output is not None:
         out_path = args.output
@@ -226,6 +229,7 @@ def main():
 
     rp = RunParams(
         ratio=args.ratio,
+        merge_cap=merge_cap,
         k=args.k,
         opacity_threshold=args.opacity_threshold,
     )
