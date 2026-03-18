@@ -32,8 +32,9 @@ document.addEventListener('DOMContentLoaded', domReady);
         const img = document.createElement('img');
         img.src = compressionGtImageSrc(scene);
         img.alt = 'Ground Truth';
-        img.style.maxWidth = '100%';
-        img.style.height = 'auto';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'contain';
         img.style.display = 'block';
         const label = document.createElement('p');
         label.className = 'b-dics__text';
@@ -63,6 +64,10 @@ document.addEventListener('DOMContentLoaded', domReady);
         const gtEl = document.getElementById('compression-real-gt');
         const compareEl = document.getElementById('compression-real-compare');
         const scene = COMPRESSION_SCENES_REAL[compressionRealSceneIdx];
+        const refHeight = Math.max(
+            gtEl && gtEl.offsetHeight ? gtEl.offsetHeight : 0,
+            compareEl && compareEl.offsetHeight ? compareEl.offsetHeight : 0
+        );
         if (idx === 0) {
             if (gtEl) { gtEl.style.display = ''; const img = gtEl.querySelector('.b-dics__media-container img'); if (img) img.src = compressionGtImageSrc(scene); }
             if (compareEl) compareEl.style.display = 'none';
@@ -77,6 +82,11 @@ document.addEventListener('DOMContentLoaded', domReady);
                 if (dicsCompressionReal) dicsCompressionReal.medias = dicsCompressionReal._getMedias();
             }
         }
+        const h = refHeight;
+        if (h > 0) {
+            if (gtEl) gtEl.style.minHeight = h + 'px';
+            if (compareEl) compareEl.style.minHeight = h + 'px';
+        }
     }
 
     function compressionUpdateSyntheticDisplay() {
@@ -84,6 +94,10 @@ document.addEventListener('DOMContentLoaded', domReady);
         const gtEl = document.getElementById('compression-synthetic-gt');
         const compareEl = document.getElementById('compression-synthetic-compare');
         const scene = COMPRESSION_SCENES_SYNTHETIC[compressionSyntheticSceneIdx];
+        const refHeight = Math.max(
+            gtEl && gtEl.offsetHeight ? gtEl.offsetHeight : 0,
+            compareEl && compareEl.offsetHeight ? compareEl.offsetHeight : 0
+        );
         if (idx === 0) {
             if (gtEl) { gtEl.style.display = ''; const img = gtEl.querySelector('.b-dics__media-container img'); if (img) img.src = compressionGtImageSrc(scene); }
             if (compareEl) compareEl.style.display = 'none';
@@ -97,6 +111,11 @@ document.addEventListener('DOMContentLoaded', domReady);
                 for (let i = 0; i < 4; i++) if (imgs[i]) imgs[i].src = compressionMethodImageSrc(scene, ratioFolder, methods[i]);
                 if (dicsCompressionSynthetic) dicsCompressionSynthetic.medias = dicsCompressionSynthetic._getMedias();
             }
+        }
+        const h = refHeight;
+        if (h > 0) {
+            if (gtEl) gtEl.style.minHeight = h + 'px';
+            if (compareEl) compareEl.style.minHeight = h + 'px';
         }
     }
 
