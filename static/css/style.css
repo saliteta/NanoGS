@@ -165,3 +165,16 @@ code, pre {
     width: 100%;
     height: 100%;
 }
+
+/* Compression comparison ratio slider */
+.compression-ratio-slider {
+  width: 180px;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+.compression-gt-only img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

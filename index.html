@@ -135,5 +135,60 @@
 </div>
 
 
+  <section class="section">
+    <h2>Real-World Scene Simplification</h2>
+    <ul class="nav nav-tabs nav-fill nav-justified" id="compression-real-scene">
+      <li class="nav-item"><a class="nav-link active" onclick="compressionRealSceneEvent(0)">Bicycle</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(1)">Bonsai</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(2)">Counter</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(3)">Dr. Johnson</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(4)">Flowers</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(5)">Garden</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(6)">Kitchen</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(7)">Playroom</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(8)">Room</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(9)">Stump</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(10)">Train</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(11)">Treehill</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionRealSceneEvent(12)">Truck</a></li>
+    </ul>
+    <div class="compression-gt-only compression-real-gt mt-3" id="compression-real-gt">
+      <!-- single GT image when ratio 100% -->
+    </div>
+    <div class="b-dics compression-real mt-3" id="compression-real-compare" style="display: none;">
+      <!-- 4 method images when ratio 10%/1%/0.1% -->
+    </div>
+    <div class="mt-3 d-flex align-items-center flex-wrap">
+      <label class="mb-0 mr-2">Ratio:</label>
+      <input type="range" class="compression-ratio-slider mr-2" id="compression-real-ratio-slider" min="0" max="3" step="1" value="1" oninput="compressionRealRatioSlider(this)">
+      <span class="compression-ratio-label font-weight-bold" id="compression-real-ratio-label">10%</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Synthetic Scene Simplification</h2>
+    <ul class="nav nav-tabs nav-fill nav-justified" id="compression-synthetic-scene">
+      <li class="nav-item"><a class="nav-link active" onclick="compressionSyntheticSceneEvent(0)">Chair</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(1)">Drums</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(2)">Ficus</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(3)">Hotdog</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(4)">Lego</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(5)">Materials</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(6)">Mic</a></li>
+      <li class="nav-item"><a class="nav-link" onclick="compressionSyntheticSceneEvent(7)">Ship</a></li>
+    </ul>
+    <div class="compression-gt-only compression-synthetic-gt mt-3" id="compression-synthetic-gt">
+      <!-- single GT image when ratio 100% -->
+    </div>
+    <div class="b-dics compression-synthetic mt-3" id="compression-synthetic-compare" style="display: none;">
+      <!-- 4 method images when ratio 10%/1%/0.1% -->
+    </div>
+    <div class="mt-3 d-flex align-items-center flex-wrap">
+      <label class="mb-0 mr-2">Ratio:</label>
+      <input type="range" class="compression-ratio-slider mr-2" id="compression-synthetic-ratio-slider" min="0" max="3" step="1" value="1" oninput="compressionSyntheticRatioSlider(this)">
+      <span class="compression-ratio-label font-weight-bold" id="compression-synthetic-ratio-label">10%</span>
+    </div>
+  </section>
+
 </body>
 </html>
