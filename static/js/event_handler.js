@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', domReady);
         if (!container || ratioIdx === 0) return;
         const scene = sceneList[sceneIdx];
         const ratioFolder = COMPRESSION_RATIO_FOLDERS[ratioIdx];
-        const labels = ['GMM', 'Light', 'Ours', 'PUP'];
-        const methods = ['gmm', 'light', 'ours', 'pup'];
+        const labels = ['LightGS', 'PUP3DGS', 'GHAP', 'Ours'];
+        const methods = ['light', 'pup', 'gmm', 'ours'];
         container.innerHTML = '';
         for (let i = 0; i < 4; i++) {
             const img = document.createElement('img');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', domReady);
                 compareEl.style.display = '';
                 const imgs = compareEl.querySelectorAll('img');
                 const ratioFolder = COMPRESSION_RATIO_FOLDERS[idx];
-                const methods = ['gmm', 'light', 'ours', 'pup'];
+                const methods = ['light', 'pup', 'gmm', 'ours'];
                 for (let i = 0; i < 4; i++) if (imgs[i]) imgs[i].src = compressionMethodImageSrc(scene, ratioFolder, methods[i]);
                 if (dicsCompressionReal) dicsCompressionReal.medias = dicsCompressionReal._getMedias();
             }
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', domReady);
                 compareEl.style.display = '';
                 const imgs = compareEl.querySelectorAll('img');
                 const ratioFolder = COMPRESSION_RATIO_FOLDERS[idx];
-                const methods = ['gmm', 'light', 'ours', 'pup'];
+                const methods = ['light', 'pup', 'gmm', 'ours'];
                 for (let i = 0; i < 4; i++) if (imgs[i]) imgs[i].src = compressionMethodImageSrc(scene, ratioFolder, methods[i]);
                 if (dicsCompressionSynthetic) dicsCompressionSynthetic.medias = dicsCompressionSynthetic._getMedias();
             }
