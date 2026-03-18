@@ -19,7 +19,7 @@
   </a>
   <!-- Code (Web App) -->
   <a href="https://github.com/RongLiu-Leo/NanoGS">
-    <img src="https://img.shields.io/badge/Code-Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Code (Web App)">
+    <img src="https://img.shields.io/badge/Code-Web-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Code (Web App)">
   </a>
 </p>
 
