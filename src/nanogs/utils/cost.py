@@ -3,8 +3,8 @@ from __future__ import annotations
 import numpy as np
 
 
-from utils.params import CostParams
-from utils.splat_utils import (
+from .params import CostParams
+from .splat_utils import (
     sigma_from_scale_quat_batch,
     batch_inv_3x3,
     safe_log,

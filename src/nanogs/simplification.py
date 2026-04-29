@@ -5,13 +5,13 @@ import math
 import os
 import numpy as np
 from tqdm import tqdm
-from utils.params import RunParams, CostParams
-from utils.ply_utils import (
+from .utils.params import RunParams, CostParams
+from .utils.ply_utils import (
     read_ply,
     store_ply,
 )
-from utils.cost import full_cost_pairs
-from utils.merge import merge_pairs
+from .utils.cost import full_cost_pairs
+from .utils.merge import merge_pairs
 
 
 def knn_indices(means: np.ndarray, k: int) -> np.ndarray:

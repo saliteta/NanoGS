@@ -2,7 +2,7 @@ import struct
 import numpy as np
 from dataclasses import dataclass
 from typing import Dict, List, Tuple
-from utils.splat_utils import logit, quat_normalize, sigmoid
+from .splat_utils import logit, quat_normalize, sigmoid
 
 PLY_TYPE_TO_STRUCT = {
     "char": "b", "int8": "b",
