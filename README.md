@@ -37,6 +37,7 @@
 
 ## How to use
 
+
 Run the simplifier on a 3DGS `.ply` file:
 
 ```bash
@@ -70,6 +71,13 @@ python simplification.py --ply scene.ply -r 0.25
 # Custom output and all optional parameters
 python simplification.py --ply scene.ply -o simplified.ply -r 0.5 --k 16 --merge_cap 0.3 --opacity_threshold 0.1 --lam_geo 1.0 --lam_sh 1.0
 ```
+
+### Pip install
+Thanks to the Community, we can install it using: 
+```
+pip install "git+https://github.com/saliteta/NanoGS.git"
+```
+
 
 ## Citation
 If you find our code or paper helps, please consider giving us a star or citing:
