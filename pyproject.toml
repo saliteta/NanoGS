@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "nanogs"
 version = "1.0.0"
 requires-python = ">=3.8"
-dependencies = ["tqdm", "numpy"]
+dependencies = ["tqdm", "numpy", "torch", "numba", "faiss-gpu"]
 
 [project.scripts]
 nanogs = "nanogs.simplification:main"
