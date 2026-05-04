@@ -1,5 +1,5 @@
 import numpy as np
-from utils.splat_utils import (
+from .splat_utils import (
     rotmat_to_quat_batch,
     sigma_from_scale_quat_batch,
 )
