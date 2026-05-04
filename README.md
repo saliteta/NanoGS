@@ -78,6 +78,23 @@ Thanks to the Community, we can install it using:
 pip install "git+https://github.com/saliteta/NanoGS.git"
 ```
 
+### Optimization
+Thanks to Claude, we have several optimization for speed and GPU sport if one want to use
+The test scene is on bicycle
+  ┌─────────────────────────────────────────────────────────────────┬──────────┬───────────────────────────────────────────────┐
+  │                               Run                               │   Time   │                    Speedup                    │
+  ├─────────────────────────────────────────────────────────────────┼──────────┼───────────────────────────────────────────────┤
+  │ CPU original (numpy + cKDTree, py greedy, row-by-row PLY write) │ 135.06 s │ 1.00×                                         │
+  ├─────────────────────────────────────────────────────────────────┼──────────┼───────────────────────────────────────────────┤
+  │ CPU + numba greedy + vec PLY write                              │ 111.08 s │ 1.22×                                         │
+  ├─────────────────────────────────────────────────────────────────┼──────────┼───────────────────────────────────────────────┤
+  │ GPU + FAISS-Flat + MAGMA                                        │ 149.58 s │ 0.90×                                         │
+  ├─────────────────────────────────────────────────────────────────┼──────────┼───────────────────────────────────────────────┤
+  │ GPU + FAISS-IVF + MAGMA                                         │ 47.07 s  │ 2.87×                                         │
+  ├─────────────────────────────────────────────────────────────────┼──────────┼───────────────────────────────────────────────┤
+  │ GPU + FAISS-IVF + MAGMA + numba + vec PLY                       │ 21.59 s  │ 6.26× vs CPU original, 5.14× vs CPU optimized │
+  └─────────────────────────────────────────────────────────────────┴──────────┴───────────────────────────────────────────────┘
+CPU optimized gain 1.22 speed, and GPU gain 6.26 speed 
 
 ## Citation
 If you find our code or paper helps, please consider giving us a star or citing:
